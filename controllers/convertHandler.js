@@ -28,15 +28,17 @@ function ConvertHandler() {
   this.getNum = function (input) {
     let result;
     try {
+      const regex = /^[0-9]+[.]?[0-9]*([\/][0-9]+[.]?[0-9]*){0,1}$/g;
       const data = extract(input);
       console.log(data);
-      // console.log(Number(data.num));
-      const num = Number(data.num);
-      Boolean(num)
-        ? result = num
+      //console.log(regex.test(data.num));
+      regex.test(data.num)
+        ? Boolean(Number(eval(data.num)))
+          ? result = Number(eval(data.num))
+          : result = 'invalid'
         : data.num == ''
           ? result = 1
-          : result = 'invalid';
+          : result = 'invalid'
       return result;
     } catch (err) {
       throw err;
@@ -67,6 +69,7 @@ function ConvertHandler() {
         result = "L";
         break;
       case "L":
+      case "l":
         result = "gal";
         break;
       case "km":
@@ -88,7 +91,27 @@ function ConvertHandler() {
 
   this.spellOutUnit = function (unit) {
     let result;
-
+    switch (unit) {
+      case "gal":
+        result = "gallons";
+        break;
+      case "l":
+      case "L":
+        result = "liters";
+        break;
+      case "km":
+        result = "kilometers";
+        break;
+      case "mi":
+        result = "miles";
+        break;
+      case "kg":
+        result = "kilograms";
+        break;
+      case "lbs":
+        result = "pounds";
+        break;
+    }
     return result;
   };
 
@@ -125,35 +148,10 @@ function ConvertHandler() {
     let result;
     let unit;
     let convertedUnit;
-    switch (initUnit) {
-      case "gal":
-        unit = "gallons";
-        convertedUnit = "liters";
-        break;
-      case "L":
-        unit = "liters";
-        convertedUnit = "gallons";
-        break;
-      case "km":
-        unit = "kilometers";
-        convertedUnit = "miles";
-        break;
-      case "mi":
-        unit = "miles";
-        convertedUnit = "kilometers";
-        break;
-      case "kg":
-        unit = "kilograms";
-        convertedUnit = "pounds";
-        break;
-      case "lbs":
-        unit = "pounds";
-        convertedUnit = "kilograms";
-        break;
-    }
+    let returnSpellUnit = this.spellOutUnit(returnUnit);
+    let initSpellUnit = this.spellOutUnit(initUnit);
 
-
-    result = `${initNum} ${unit} converts to ${returnNum} ${convertedUnit}`
+    result = `${initNum} ${initSpellUnit} converts to ${returnNum} ${returnSpellUnit}`
 
     return result;
   };
