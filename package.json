@@ -4,7 +4,8 @@
 	"description": "Metric / Imperial Unit Converter",
 	"main": "server.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "node server.js",
+		"debug": "nodemon server.js"
 	},
 	"dependencies": {
 		"body-parser": "^1.19.0",
@@ -20,7 +21,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/freeCodeCamp/boilerplate-project-metricimpconverter"
+		"url": "https://github.com/gotcha5009/boilerplate-project-metricimpconverter"
 	},
 	"keywords": [
 		"node",
